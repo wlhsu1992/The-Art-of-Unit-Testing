@@ -1,5 +1,6 @@
 using Ch2_SimpleUnitTest;
 using NUnit.Framework;
+using System.Security.Cryptography.X509Certificates;
 
 namespace LogAn.UnitTests
 {
@@ -9,30 +10,18 @@ namespace LogAn.UnitTests
     [TestFixture]
     public class LogAnalyzerTests
     {
-        private LogAnalyzer _analyzer = null;
-
-        /// <summary>
-        /// 在測試類中的每個測試 [運行之前] 都會執行這個方法。
-        /// 通常用來執行一些重複性的初始化動作。
-        /// (可能會降低代碼可讀性，所以書中不建議使用)
-        /// </summary>
-        [SetUp]
-        public void SetUP()
-        {
-            _analyzer = new LogAnalyzer();
-        }
-
         /// <summary>
         /// 單元測試命名原則 {UnitOfWorkName}_{Scenario}_{ExpectedBehavior}
         /// </summary>
         [Test]
-        [TestCase("filewithbadextension.foo", false)]
-        [TestCase("filewithbadextension.SLF", true)]
-        [TestCase("filewithbadextension.slf", true)]
-        public void IsValidLogFileName_BadExtension_ReturnFalse(string fileName, bool expected)
+        public void IsValidLogFileName_NameSupportedExtension_ReturnTrue()
         {
-            bool result = _analyzer.IsValidLogFileName(fileName);
-            Assert.AreEqual(expected, result);
+            FakeExtensionManager fakeExtensionManager = new FakeExtensionManager();
+            fakeExtensionManager.WillBeValid = true;
+            LogAnalyzer logAnalyzer = new LogAnalyzer(fakeExtensionManager);
+
+            bool result = logAnalyzer.IsValidLogFileName("short.ext");
+            Assert.True(result);
         }
 
         /// <summary>
@@ -41,8 +30,10 @@ namespace LogAn.UnitTests
         [Test]
         public void IsValidFileName_EmptyFileName_Throws()
         {
-            var ex = Assert.Catch<Exception>(() =>
-                _analyzer.IsValidLogFileName(string.Empty));
+            FakeExtensionManager fakeExtensionManager = new FakeExtensionManager();
+            LogAnalyzer logAnalyzer = new LogAnalyzer(fakeExtensionManager);
+
+            var ex = Assert.Catch<Exception>(() => logAnalyzer.IsValidLogFileName(string.Empty));
 
             StringAssert.Contains("filename has to be provided", ex.Message);
         }
@@ -56,16 +47,14 @@ namespace LogAn.UnitTests
         {
             Assert.True(false);
         }
+    }
 
-        /// <summary>
-        /// 在測試類中的每個測試 [運行之後] 都會執行這個方法。
-        /// 通常用來執行重複性的靜態變數初始化動作。
-        /// (可能會降低代碼可讀性，所以書中不建議使用)
-        /// </summary>
-        [TearDown]
-        public void TearDown() 
+    public class FakeExtensionManager : IExtensionManager
+    {
+        public bool WillBeValid = false;
+        public bool IsValid(string fileName)
         {
-            _analyzer = null;
+            return WillBeValid;
         }
     }
 }
