@@ -13,27 +13,14 @@ namespace LogAn.UnitTests
         /// 單元測試命名原則 {UnitOfWorkName}_{Scenario}_{ExpectedBehavior}
         /// </summary>
         [Test]
-        public void IsValidLogFileName_BadExtension_ReturnFalse()
+        [TestCase("filewithbadextension.foo", false)]
+        [TestCase("filewithbadextension.SLF", true)]
+        [TestCase("filewithbadextension.slf", true)]
+        public void IsValidLogFileName_BadExtension_ReturnFalse(string fileName, bool expected)
         {
             LogAnalyzer analyzer = new LogAnalyzer();
-            bool result = analyzer.IsValidLogFileName("filewithbadextension.foo");
-            Assert.IsFalse(result);
-        }
-
-        [Test]
-        public void IsValidLogFileName_GoodExtensionLowercase_ReturnTrue()
-        {
-            LogAnalyzer analyzer = new LogAnalyzer();
-            bool result = analyzer.IsValidLogFileName("filewithbadextension.slf");
-            Assert.IsTrue(result);
-        }
-
-        [Test]
-        public void IsValidLogFileName_GoodExtensionUppercase_ReturnTrue()
-        {
-            LogAnalyzer analyzer = new LogAnalyzer();
-            bool result = analyzer.IsValidLogFileName("filewithbadextension.SLF");
-            Assert.IsTrue(result);
+            bool result = analyzer.IsValidLogFileName(fileName);
+            Assert.AreEqual(expected, result);
         }
     }
 }
