@@ -1,3 +1,4 @@
+using Ch2_SimpleUnitTest;
 using NUnit.Framework;
 
 namespace LogAn.UnitTests
@@ -14,6 +15,9 @@ namespace LogAn.UnitTests
         [Test]
         public void IsValidLogFileName_BadExtension_ReturnFalse()
         {
+            LogAnalyzer analyzer = new LogAnalyzer();
+            bool result = analyzer.IsValidLogFileName("filewithbadextension.foo");
+            Assert.IsFalse(result);
         }
     }
 }
