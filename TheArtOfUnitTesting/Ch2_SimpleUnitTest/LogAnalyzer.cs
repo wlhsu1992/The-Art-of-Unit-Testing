@@ -8,6 +8,13 @@ namespace Ch2_SimpleUnitTest
 {
     public class LogAnalyzer
     {
+        private IExtensionManager _extensionManager;
+
+        public LogAnalyzer(IExtensionManager mgr) 
+        {
+            _extensionManager = mgr;
+        }
+
         /// <summary>
         /// 驗證檔案副檔名是否為 SLF，是的話返回 true ；反之 false
         /// </summary>
@@ -15,8 +22,7 @@ namespace Ch2_SimpleUnitTest
         /// <returns></returns>
         public bool IsValidLogFileName(string fileName)
         {
-            IExtensionManager mgr = new FileExtensionManager();
-            return mgr.IsValid(fileName);
+            return _extensionManager.IsValid(fileName);
         }
     }
 }
