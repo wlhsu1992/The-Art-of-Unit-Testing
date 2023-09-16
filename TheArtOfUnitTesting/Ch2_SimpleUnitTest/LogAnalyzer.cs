@@ -15,12 +15,13 @@ namespace Ch2_SimpleUnitTest
         /// <returns></returns>
         public bool IsValidLogFileName(string fileName)
         {
-            if (!fileName.EndsWith(".SLF", StringComparison.CurrentCultureIgnoreCase))
+            if (string.IsNullOrEmpty(fileName))
             {
-                return false;
+                throw new ArgumentNullException(
+                    "filename has to be provided");
             }
 
-            return true;
+            return fileName.EndsWith(".SLF", StringComparison.CurrentCultureIgnoreCase);
         }
     }
 }

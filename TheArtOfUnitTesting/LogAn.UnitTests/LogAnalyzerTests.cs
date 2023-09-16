@@ -9,6 +9,19 @@ namespace LogAn.UnitTests
     [TestFixture]
     public class LogAnalyzerTests
     {
+        private LogAnalyzer _analyzer = null;
+
+        /// <summary>
+        /// 在測試類中的每個測試 [運行之前] 都會執行這個方法。
+        /// 通常用來執行一些重複性的初始化動作。
+        /// (可能會降低代碼可讀性，所以書中不建議使用)
+        /// </summary>
+        [SetUp]
+        public void SetUP()
+        {
+            _analyzer = new LogAnalyzer();
+        }
+
         /// <summary>
         /// 單元測試命名原則 {UnitOfWorkName}_{Scenario}_{ExpectedBehavior}
         /// </summary>
@@ -18,9 +31,19 @@ namespace LogAn.UnitTests
         [TestCase("filewithbadextension.slf", true)]
         public void IsValidLogFileName_BadExtension_ReturnFalse(string fileName, bool expected)
         {
-            LogAnalyzer analyzer = new LogAnalyzer();
-            bool result = analyzer.IsValidLogFileName(fileName);
+            bool result = _analyzer.IsValidLogFileName(fileName);
             Assert.AreEqual(expected, result);
+        }
+
+        /// <summary>
+        /// 在測試類中的每個測試 [運行之後] 都會執行這個方法。
+        /// 通常用來執行重複性的靜態變數初始化動作。
+        /// (可能會降低代碼可讀性，所以書中不建議使用)
+        /// </summary>
+        [TearDown]
+        public void TearDown() 
+        {
+            _analyzer = null;
         }
     }
 }
