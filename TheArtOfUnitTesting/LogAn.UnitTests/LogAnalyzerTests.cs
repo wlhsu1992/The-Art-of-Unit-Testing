@@ -36,6 +36,19 @@ namespace LogAn.UnitTests
         }
 
         /// <summary>
+        /// 測試拋出例外情形
+        /// </summary>
+        [Test]
+        public void IsValidFileName_EmptyFileName_Throws()
+        {
+            // Assert.Carch 函數返回 Lambda 內拋出的異常實例
+            var ex = Assert.Catch<Exception>(() => _analyzer.IsValidLogFileName(string.Empty));
+
+            // 對異常物件的訊息進行斷言
+            StringAssert.Contains("filename has to be provided", ex.Message);
+        }
+
+        /// <summary>
         /// 在測試類中的每個測試 [運行之後] 都會執行這個方法。
         /// 通常用來執行重複性的靜態變數初始化動作。
         /// (可能會降低代碼可讀性，所以書中不建議使用)
