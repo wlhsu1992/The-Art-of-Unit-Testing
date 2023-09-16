@@ -1,6 +1,6 @@
 ﻿namespace Ch2_SimpleUnitTest
 {
-    public class FileExtensionManager
+    public class FileExtensionManager : IExtensionManager
     {
         public bool IsValid(string fileName)
         {

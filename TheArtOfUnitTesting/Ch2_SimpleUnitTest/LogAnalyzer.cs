@@ -15,7 +15,7 @@ namespace Ch2_SimpleUnitTest
         /// <returns></returns>
         public bool IsValidLogFileName(string fileName)
         {
-            FileExtensionManager mgr = new FileExtensionManager();
+            IExtensionManager mgr = new FileExtensionManager();
             return mgr.IsValid(fileName);
         }
     }
