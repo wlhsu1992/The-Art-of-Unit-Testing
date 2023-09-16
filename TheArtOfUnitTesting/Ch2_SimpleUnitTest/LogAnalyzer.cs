@@ -22,6 +22,12 @@ namespace Ch2_SimpleUnitTest
         /// <returns></returns>
         public bool IsValidLogFileName(string fileName)
         {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                throw new ArgumentNullException(
+                    "filename has to be provided");
+            }
+
             return _extensionManager.IsValid(fileName);
         }
     }
