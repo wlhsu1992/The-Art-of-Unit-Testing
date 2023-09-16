@@ -4,14 +4,7 @@
     {
         static void Main(string[] args)
         {
-            try
-            {
-                SimpleParserTests.TestReturnZeroWhenEmptyString();
-            } 
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+
         }
     }
 }
