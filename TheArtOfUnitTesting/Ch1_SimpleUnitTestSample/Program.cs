@@ -8,7 +8,7 @@ namespace Ch1_SimpleUnitTestSample
         {
             try
             {
-                SimpleParserTests.TestReturnZeroWhenEmptyString();
+                TestUtil.TestReturnZeroWhenEmptyString();
             }
             catch (Exception e)
             {
