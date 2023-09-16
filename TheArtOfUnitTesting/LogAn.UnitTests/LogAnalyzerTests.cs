@@ -48,6 +48,16 @@ namespace LogAn.UnitTests
         }
 
         /// <summary>
+        /// 忽略測試案例
+        /// </summary>
+        [Test]
+        [Ignore("ignore this test case")]
+        public void IsValidFileNAme_ValidFile_ReturnTrue()
+        {
+            Assert.True(false);
+        }
+
+        /// <summary>
         /// 在測試類中的每個測試 [運行之後] 都會執行這個方法。
         /// 通常用來執行重複性的靜態變數初始化動作。
         /// (可能會降低代碼可讀性，所以書中不建議使用)
