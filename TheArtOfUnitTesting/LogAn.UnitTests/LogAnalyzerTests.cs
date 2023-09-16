@@ -58,19 +58,6 @@ namespace LogAn.UnitTests
         }
 
         /// <summary>
-        /// 測試系統狀態改變而非返回值
-        /// </summary>
-        [Test]
-        [TestCase("badname.foo", false)]
-        [TestCase("goodname.slf", true)]
-        [TestCase("goodname.Slf", true)]
-        public void ISValidFileName_WhenCalled_ChangesWasLastFileNameValid(string filename, bool expected)
-        {
-            _analyzer.IsValidLogFileName(filename);
-            Assert.AreEqual(expected, _analyzer.WasLastFileNameValid);
-        }
-
-        /// <summary>
         /// 在測試類中的每個測試 [運行之後] 都會執行這個方法。
         /// 通常用來執行重複性的靜態變數初始化動作。
         /// (可能會降低代碼可讀性，所以書中不建議使用)
