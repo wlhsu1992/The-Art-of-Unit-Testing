@@ -1,4 +1,5 @@
 using Ch2_SimpleUnitTest;
+using Ch2_SimpleUnitTest.Interface;
 using NUnit.Framework;
 using System.Security.Cryptography.X509Certificates;
 

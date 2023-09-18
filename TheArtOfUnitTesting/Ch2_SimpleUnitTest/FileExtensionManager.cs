@@ -1,4 +1,6 @@
-﻿namespace Ch2_SimpleUnitTest
+﻿using Ch2_SimpleUnitTest.Interface;
+
+namespace Ch2_SimpleUnitTest
 {
     public class FileExtensionManager : IExtensionManager
     {

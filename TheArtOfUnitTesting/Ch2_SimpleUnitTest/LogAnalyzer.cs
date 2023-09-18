@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ch2_SimpleUnitTest.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
