@@ -30,14 +30,18 @@ namespace Ch2_SimpleUnitTest
             {
                 throw new ArgumentNullException(
                     "filename has to be provided");
-            }
-
-            if(fileName.Length < 8)
-            {
-                _webService.LogError($"Filename too short: {fileName}");
-            }
+            } 
 
             return _extensionManager.IsValid(fileName);
+        }
+
+        public void Analyze(string fileName)
+        {
+            if (fileName.Length < 8)
+            {
+                // 加入錯誤訊息到 Log 中
+                _webService.LogError($"Filename too short: {fileName}");
+            }
         }
     }
 

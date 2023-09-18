@@ -17,11 +17,12 @@ namespace LogAn.UnitTests
         [Test]
         public void IsValidLogFileName_NameSupportedExtension_ReturnTrue()
         {
-            FakeExtensionManager fakeExtensionManager = new FakeExtensionManager();
+            var fakeExtensionManager = new FakeExtensionManager();
+            var fakeWebService = new FakeWebService();
             fakeExtensionManager.WillBeValid = true;
-            LogAnalyzer logAnalyzer = new LogAnalyzer(fakeExtensionManager);
+            var logAnalyzer = new LogAnalyzer(fakeExtensionManager, fakeWebService);
 
-            bool result = logAnalyzer.IsValidLogFileName("short.ext");
+            bool result = logAnalyzer.IsValidLogFileName("short.SLF");
             Assert.True(result);
         }
 
@@ -31,8 +32,9 @@ namespace LogAn.UnitTests
         [Test]
         public void IsValidFileName_EmptyFileName_Throws()
         {
-            FakeExtensionManager fakeExtensionManager = new FakeExtensionManager();
-            LogAnalyzer logAnalyzer = new LogAnalyzer(fakeExtensionManager);
+            var fakeExtensionManager = new FakeExtensionManager();
+            var fakeWebService = new FakeWebService();
+            var logAnalyzer = new LogAnalyzer(fakeExtensionManager, fakeWebService);
 
             var ex = Assert.Catch<Exception>(() => logAnalyzer.IsValidLogFileName(string.Empty));
 
@@ -56,6 +58,16 @@ namespace LogAn.UnitTests
         public bool IsValid(string fileName)
         {
             return WillBeValid;
+        }
+    }
+
+    public class FakeWebService : IWebService
+    {
+        public string LastError { get; set; }
+
+        public void LogError(string message) 
+        {
+            LastError = message;
         }
     }
 }
