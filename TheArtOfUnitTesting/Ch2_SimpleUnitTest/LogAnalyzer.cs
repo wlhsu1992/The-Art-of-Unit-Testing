@@ -10,10 +10,13 @@ namespace Ch2_SimpleUnitTest
     public class LogAnalyzer
     {
         private IExtensionManager _extensionManager;
+        private IWebService _webService;
 
-        public LogAnalyzer(IExtensionManager mgr) 
+        public LogAnalyzer(IExtensionManager mgr
+            , IWebService webService)
         {
             _extensionManager = mgr;
+            _webService = webService;
         }
 
         /// <summary>
@@ -29,7 +32,13 @@ namespace Ch2_SimpleUnitTest
                     "filename has to be provided");
             }
 
+            if(fileName.Length < 8)
+            {
+                _webService.LogError($"Filename too short: {fileName}");
+            }
+
             return _extensionManager.IsValid(fileName);
         }
     }
+
 }
