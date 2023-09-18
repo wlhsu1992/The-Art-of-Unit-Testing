@@ -50,6 +50,23 @@ namespace LogAn.UnitTests
         {
             Assert.True(false);
         }
+
+        /// <summary>
+        /// 使用 Mock 驗證第三方操作
+        /// </summary>
+        [Test]
+        public void Analyze_TooShortFileName_CallsWebService()
+        {
+            var fakeExtensionManager = new FakeExtensionManager();
+            var mockService = new FakeWebService();
+            var log = new LogAnalyzer(fakeExtensionManager, mockService);
+            string tooShortFileName = "abc.ext";
+
+            log.Analyze(tooShortFileName);
+
+            // 對模擬物件進行斷言：驗證參數可以如預期般的被傳入
+            StringAssert.Contains("Filename too short:abc.ext", mockService.LastError);
+        }
     }
 
     public class FakeExtensionManager : IExtensionManager
